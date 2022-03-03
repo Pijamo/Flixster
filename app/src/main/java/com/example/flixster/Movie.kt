@@ -3,15 +3,20 @@ package com.example.flixster
 
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.os.Parcelable
+import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.parcelize.Parcelize
 import org.json.JSONArray
 
-
+@Parcelize
 data class Movie (
     val movieId: Int,
     private val posterPath: String,
     val title: String,
     val overview: String,
-) {
+    val voteAverage: Double,
+) : Parcelable {
+    @IgnoredOnParcel
     val posterImageUrl = "https://image.tmdb.org/t/p/w342/$posterPath"
     val backgroundImageUrl = "https://image.tmdb.org/t/p/w300/$posterPath"
 
@@ -27,7 +32,8 @@ data class Movie (
                         movieJson.getInt("id"),
                         movieJson.getString("poster_path"),
                         movieJson.getString("title"),
-                        movieJson.getString("overview")
+                        movieJson.getString("overview"),
+                        movieJson.getDouble("vote_average"),
                     )
                 )
             }
