@@ -1,17 +1,20 @@
 package com.example.flixster
 
+import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import android.util.Pair as UtilPair
+
 
 const val MOVIE_EXTRA = "MOVIE_EXTRA"
 private const val TAG = "MovieAdapter"
@@ -48,7 +51,6 @@ class MovieAdapter(private val context: Context, private val movies: List<Movie>
             tvTitle.text = movie.title
             tvOverview.text = movie.overview
             Glide.with(context).load(movie.posterImageUrl).into(ivPoster)
-
         }
 
         override fun onClick(v: View?) {
@@ -58,7 +60,11 @@ class MovieAdapter(private val context: Context, private val movies: List<Movie>
             //2. USe the intent system to navigate to the new activity
             val intent = Intent(context, DetailActivity::class.java)
             intent.putExtra(MOVIE_EXTRA, movie)
-            context.startActivity(intent)
+
+            val options = ActivityOptions.makeSceneTransitionAnimation((context as Activity)!!,
+                UtilPair.create(tvTitle, "titleName"),
+                UtilPair.create(tvOverview, "description"))
+            context.startActivity(intent, options.toBundle())
         }
     }
 }
