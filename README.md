@@ -28,7 +28,7 @@ Flix is an app that allows users to browse movies from the [The Movie Database A
 
 ### Notes
 
-Describe any challenges encountered while building the app.
+I think I spent the most time working on databinding, the instruction set were not as intuitive as i wanted it to be but I had a great time trying to work around it. I admit, I did get stuck for quite some time on binding the Image using a custom data Binder since it wasnt really clear in the instruction how to make a custom BindingAdapter, then since the instruction were for Picaso and not Glide, i was stuck for abit there too trying to get Glide to work as I wanted it to with the transformation. Overall I had great fun, since the challanging part was what made me mode comfortable (at least a little bit more) with kotlin syntaxes.
 
 ## Open-source libraries used
 - [Android Async HTTP](https://github.com/codepath/CPAsyncHttpClient) - Simple asynchronous HTTP requests with JSON parsing
