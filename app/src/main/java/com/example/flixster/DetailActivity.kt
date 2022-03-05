@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import com.codepath.asynchttpclient.AsyncHttpClient
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler
+import com.example.flixster.databinding.ActivityDetailBinding
 import com.google.android.youtube.player.YouTubeBaseActivity
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
@@ -21,26 +23,20 @@ private const val TAG = "DetailActivity"
 
 class DetailActivity : YouTubeBaseActivity() {
 
-    private lateinit var tvTitle: TextView
-    private lateinit var tvOverview: TextView
-    private lateinit var ratingBar: RatingBar
-    private lateinit var ytPLayerView: YouTubePlayerView
+    private lateinit var binding: ActivityDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
-        tvTitle = findViewById(R.id.tvTitle)
-        tvOverview = findViewById(R.id.tvOverview)
-        ratingBar = findViewById(R.id.rbVoteAverage)
-        ytPLayerView = findViewById(R.id.player)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
+
+        val ytPLayerView = binding.player
 
         val movie = intent.getParcelableExtra<Movie>(MOVIE_EXTRA) as Movie
 
-        Log.i(TAG, "Movie is $movie")
+        binding.details = movie
 
-        tvTitle.text = movie.title
-        tvOverview.text = movie.overview
-        ratingBar.rating = movie.voteAverage.toFloat()
+        Log.i(TAG, "Movie is $movie")
 
         val client = AsyncHttpClient()
         client.get(TRAILERS_URL.format(movie.movieId), object: JsonHttpResponseHandler(){
@@ -65,12 +61,13 @@ class DetailActivity : YouTubeBaseActivity() {
                 val youtubeKey = movieTrailerJson.getString("key")
 
                 //play youtube
-                initializeYoutube(youtubeKey)
+                initializeYoutube(youtubeKey, ytPLayerView, binding.rbVoteAverage)
             }
         })
     }
 
-    private fun initializeYoutube(youtubeKey: String) {
+    private fun initializeYoutube(youtubeKey: String, ytPLayerView: YouTubePlayerView, ratingBar: RatingBar) {
+
         ytPLayerView.initialize(YOUTUBE_API_KEY, object: YouTubePlayer.OnInitializedListener {
             override fun onInitializationSuccess(
                 provider: YouTubePlayer.Provider?,

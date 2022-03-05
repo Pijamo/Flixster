@@ -4,9 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Projects/Flixster/app/src/main/res/layout-land/activity_main.xml" value="0.16843033509700175" />
-        <entry key="..\:/Projects/Flixster/app/src/main/res/layout/activity_detail.xml" value="0.18" />
+        <entry key="..\:/Projects/Flixster/app/src/main/res/layout/activity_detail.xml" value="0.22" />
         <entry key="..\:/Projects/Flixster/app/src/main/res/layout/activity_main.xml" value="0.19895833333333332" />
-        <entry key="..\:/Projects/Flixster/app/src/main/res/layout/item_movie.xml" value="0.19895833333333332" />
+        <entry key="..\:/Projects/Flixster/app/src/main/res/layout/item_movie.xml" value="0.25" />
       </map>
     </option>
   </component>
